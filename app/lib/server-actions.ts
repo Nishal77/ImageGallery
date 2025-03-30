@@ -10,8 +10,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function sendOTP(email: string) {
   try {
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+    const supabase = createClient()
     
     // Generate OTP and expiration time
     const otp = generateOTP()
@@ -141,8 +140,7 @@ export async function sendOTP(email: string) {
 
 export async function verifyOTP(email: string, otp: string) {
   try {
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+    const supabase = createClient()
 
     // Get user data to verify OTP
     const { data: { user }, error: userError } = await supabase.auth.getUser()

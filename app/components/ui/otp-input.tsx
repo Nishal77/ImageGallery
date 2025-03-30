@@ -61,12 +61,16 @@ export function OTPInput({
     onChange(newValue.padEnd(length, ''))
   }
 
+  const setRef = (index: number) => (el: HTMLInputElement | null) => {
+    inputRefs.current[index] = el
+  }
+
   return (
     <div className="inline-flex rounded-lg bg-zinc-800/50 p-1">
       {Array.from({ length }, (_, i) => (
         <div key={i} className="relative">
           <input
-            ref={(el) => (inputRefs.current[i] = el)}
+            ref={setRef(i)}
             type="text"
             inputMode="numeric"
             pattern="[0-9]*"

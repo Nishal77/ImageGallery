@@ -121,7 +121,7 @@ export function useOtpForm() {
         localStorage.setItem('otpDailyAttempts', newDailyAttempts.toString());
         localStorage.setItem('otpDailyAttemptsDate', new Date().toDateString());
       } else {
-        setError(result.error || 'Failed to send verification code')
+        setError(result.message || 'Failed to send verification code')
       }
     } catch (err) {
       setError('Failed to send verification code')
@@ -165,8 +165,8 @@ export function useOtpForm() {
         setIsInvalid(true)
         
         // Show an error only for non-validation errors
-        if (result.error && !result.error.includes("Invalid OTP")) {
-          setError(result.error)
+        if (result.message && !result.message.includes("Invalid verification code")) {
+          setError(result.message)
         }
         
         setOTP('') // Clear OTP on error

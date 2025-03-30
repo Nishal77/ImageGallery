@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { GalleryVerticalEnd } from 'lucide-react'
 
-export default function ErrorPage() {
+function ErrorContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const errorCode = searchParams.get('code')
@@ -46,5 +46,22 @@ export default function ErrorPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ErrorPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-4">
+        <div className="w-full max-w-md space-y-8 rounded-lg p-8 shadow-xl">
+          <div className="flex flex-col items-center gap-4">
+            <h1 className="text-xl font-bold text-white">Authentication Error</h1>
+            <p className="text-center text-zinc-400">Loading error details...</p>
+          </div>
+        </div>
+      </div>
+    }>
+      <ErrorContent />
+    </Suspense>
   )
 } 

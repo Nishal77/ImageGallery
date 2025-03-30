@@ -41,11 +41,13 @@ class TempStorage {
 
   private cleanup(): void {
     const now = new Date();
-    for (const [key, data] of this.storage.entries()) {
-      if (data.expiresAt < now) {
+    // Convert to array to avoid issues with older JavaScript targets
+    Array.from(this.storage.keys()).forEach(key => {
+      const data = this.storage.get(key);
+      if (data && data.expiresAt < now) {
         this.storage.delete(key);
       }
-    }
+    });
   }
 }
 
